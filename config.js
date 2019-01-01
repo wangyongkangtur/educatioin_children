@@ -22,6 +22,7 @@ const config = {
   answerSheetUrl: `https://${host}/answer_sheet`,
 
   userUrl: `https://${host}/user`,
+  userLoginUrl: `${host}/api/user/login`,
 
 }
 

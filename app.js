@@ -1,15 +1,43 @@
+const userLoginUrl = require('./config.js').userLoginUrl
 //app.js
 App({
   onLaunch: function () {
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    // var logs = wx.getStorageSync('logs') || []
+    // console.log('logs', logs)
+    // logs.unshift(Date.now())
+    // wx.setStorageSync('logs', logs)
+
+    var userId = wx.getStorageSync('USERId')
 
     // 登录
     wx.login({
       success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        console.log(res.code)
+        // // 发送 res.code 到后台换取 openId, sessionKey, unionId
+
+        var that = this;
+        wx.request({
+          url: userLoginUrl,
+          data: {
+            data:{
+              "code": res.code
+            }
+          },
+          method: 'POST',
+          header: {
+            'content-type': 'application/json'
+          },
+          success(result) {
+            console.log('request success', result)
+            // console.log('request success', result.errMsg)
+            console.log('request success', result.data)
+           
+          },
+          fail({ errMsg }) {
+            console.log('request fail', errMsg)
+          }
+        })
       }
     })
     // 获取用户信息
@@ -20,6 +48,7 @@ App({
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
+              console.log('res.userInfo111111111', res.userInfo)
               this.globalData.userInfo = res.userInfo
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -35,6 +64,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    isConnected: true
+    isConnected: true,
+    sessionId: null
   }
 })
