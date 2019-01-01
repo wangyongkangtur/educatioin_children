@@ -1,0 +1,5 @@
+<!--pages/paper/paper.wxml-->
+<!-- <text>pages/paper/paper.wxml</text> -->
+<view wx:for="{{paper}}">
+  {{item.title}}
+</view>

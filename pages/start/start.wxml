@@ -1,0 +1,5 @@
+<!--pages/start/start.wxml-->
+<text>pages/start/start.wxml</text>
+<view class="confirm-btn" bindtap='goToIndex'>
+          <text >goToIndex</text>
+</view>
